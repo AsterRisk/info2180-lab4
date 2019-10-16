@@ -27,7 +27,10 @@ window.onload = function(){
         {
             squares[i].addEventListener("mouseover", function()
             {
-                this.classList.add("hover");
+                if(!this.classList.contains("finished"))
+                {
+                    this.classList.add("hover");
+                }
             });
             squares[i].addEventListener("mouseout", function()
             {
