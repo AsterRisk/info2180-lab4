@@ -1,58 +1,38 @@
 window.onload = function(){
+    var x = 0, status, y, z;
+    var divs = document.getElementsByTagName("div");
+    var gameDone = false;
+    console.log(divs.length);
     const states = ["X","O"];
-    var x = 0;
-    var status, y;
-    var z;
-    var btn = document.getElementsByClassName("btn")[0];
-    btn.addEventListener("click", function playGame(){
-        const divs = document.getElementsByTagName("div");
-        var i = 0;
-        for(i = 0;i<divs.length;i++)
+    var status;
+    for (i=0;i<divs.length;i++)
+    {
+        console.log(i);
+        if((divs[i].id == "" ) && (divs[i].className == ""))
         {
-            if(( divs[i].id == "") && ((divs[i].classList.length == 0) || divs[i].classList.contains("square")))
-            {
-                divs[i].classList.add("square"); 
-                divs[i].classList.remove("X");
-                divs[i].classList.remove("O");
-                divs[i].innerHTML = "";
-                divs[i].classList.remove("finished");
-                status = document.getElementById("status");
-                status.classList.remove("you-won");
-                status.innerHTML = "Move your mouse over a square and click to play an X or an O."
-            }
+            console.log(i);
+            divs[i].classList.add("game");
         }
-        const squares = document.getElementsByClassName("square");
-        var row1, row2, row3, col1, col2, col3, diag1, diag2, gameBoard;
-        for(i=0;i<squares.length;i++)
-        {
-            squares[i].addEventListener("mouseover", function()
+    }
+    const games = document.getElementsByClassName("game");
+    for(i=0;i<games.length;i++)
+    {
+        games[i].addEventListener("click", function(){
+            if(!gameDone)
             {
-                if(!this.classList.contains("finished"))
-                {
-                    this.classList.add("hover");
-                }
-            });
-            squares[i].addEventListener("mouseout", function()
-            {
-                this.classList.remove("hover");
-            });
-            squares[i].addEventListener("click", function(){
-                //alert("turn");
-                if(!this.classList.contains("finished"))
-                {
-                    this.classList.add(states[x%2]);
-                    this.innerHTML = states[x%2];
-                    x++;
-                }
-                row1 = squares[0].innerHTML + squares[1].innerHTML + squares[2].innerHTML;
-                row2 = squares[3].innerHTML + squares[4].innerHTML + squares[5].innerHTML;
-                row3 = squares[6].innerHTML + squares[7].innerHTML + squares[8].innerHTML;
-                col1 = squares[0].innerHTML + squares[3].innerHTML + squares[6].innerHTML;
-                col2 = squares[1].innerHTML + squares[4].innerHTML + squares[7].innerHTML;
-                col3 = squares[2].innerHTML + squares[5].innerHTML + squares[8].innerHTML;
-                diag1= squares[0].innerHTML + squares[4].innerHTML + squares[8].innerHTML;
-                diag2= squares[2].innerHTML + squares[4].innerHTML + squares[6].innerHTML;
-                gameBoard = [row1, row2, row3, col1, col2, col3, diag1, diag2];
+                this.classList.add(states[x%2]);
+                this.innerHTML = states[x%2];
+                x++;
+                this.classList.add("finished");
+                var row1 = games[0].innerHTML + games[1].innerHTML + games[2].innerHTML;
+                var row2 = games[3].innerHTML + games[4].innerHTML + games[5].innerHTML;
+                var row3 = games[6].innerHTML + games[7].innerHTML + games[8].innerHTML;
+                var col1 = games[0].innerHTML + games[3].innerHTML + games[6].innerHTML;
+                var col2 = games[1].innerHTML + games[4].innerHTML + games[7].innerHTML;
+                var col3 = games[2].innerHTML + games[5].innerHTML + games[8].innerHTML;
+                var diag1= games[0].innerHTML + games[4].innerHTML + games[8].innerHTML;
+                var diag2= games[2].innerHTML + games[4].innerHTML + games[6].innerHTML;
+                var gameBoard = [row1, row2, row3, col1, col2, col3, diag1, diag2];
                 for (y=0; y<gameBoard.length; y++)
                 {
                     if((gameBoard[y] == "XXX") || (gameBoard[y] == "OOO"))
@@ -60,13 +40,35 @@ window.onload = function(){
                         status = document.getElementById("status");
                         status.classList.add("you-won");
                         status.innerHTML = "<p>Congratulations! " + states[(x-1)%2] + " is the winner!</p>";
-                        for(z=0;z<squares.length;z++){
-                            squares[z].classList.add("finished");
-                        }
+                        gameDone = true;
                     }
-                    
                 }
-            }
-        ,false)}
-    });
-}  
+            } 
+        })
+    }
+    var btn = document.getElementsByClassName("btn")[0];
+    btn.addEventListener("click", function(){
+        x =0;
+        var c = 0;
+        var status = document.getElementById("status");
+        const games = document.getElementsByClassName("game");
+        for(c=0;c<games.length;c++)
+        {
+            console.log(c);
+            games[c].classList.remove("square");
+            games[c].classList.add("square");
+            games[c].classList.remove("X");
+            games[c].classList.remove("O");
+            games[c].addEventListener("mouseover", function(){
+                this.classList.add("hover");
+            })
+            games[c].addEventListener("mouseout", function(){
+                this.classList.remove("hover");
+            })
+            games[c].innerHTML = "";
+        }
+        status.classList.remove("you-won");
+        status.innerHTML = "Move your mouse over a square and click to play an X or an O.";
+        gameDone = false;
+    })
+}
