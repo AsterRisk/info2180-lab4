@@ -38,7 +38,7 @@ window.onload = function(){
             });
             squares[i].addEventListener("click", function(){
                 //alert("turn");
-                if(this.classList.length < 3)
+                if(!this.classList.contains("finished"))
                 {
                     this.classList.add(states[x%2]);
                     this.innerHTML = states[x%2];
