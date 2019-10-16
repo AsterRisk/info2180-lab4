@@ -20,10 +20,13 @@ window.onload = function(){
         games[i].addEventListener("click", function(){
             if(!gameDone)
             {
-                this.classList.add(states[x%2]);
-                this.innerHTML = states[x%2];
-                x++;
-                this.classList.add("finished");
+                if(!this.classList.contains("finished"))
+                {
+                    this.classList.add(states[x%2]);
+                    this.innerHTML = states[x%2];
+                    x++;
+                    this.classList.add("finished");
+                }
                 var row1 = games[0].innerHTML + games[1].innerHTML + games[2].innerHTML;
                 var row2 = games[3].innerHTML + games[4].innerHTML + games[5].innerHTML;
                 var row3 = games[6].innerHTML + games[7].innerHTML + games[8].innerHTML;
@@ -59,6 +62,7 @@ window.onload = function(){
             games[c].classList.add("square");
             games[c].classList.remove("X");
             games[c].classList.remove("O");
+            games[c].classList.remove("finished");
             games[c].addEventListener("mouseover", function(){
                 if(!gameDone)
                 {
