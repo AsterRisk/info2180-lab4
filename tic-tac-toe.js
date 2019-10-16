@@ -59,7 +59,7 @@ window.onload = function(){
                     {
                         status = document.getElementById("status");
                         status.classList.add("you-won");
-                        status.innerHTML = "<p>Congratulations!" + states[(x-1)%2] + " is the winner!</p>";
+                        status.innerHTML = "<p>Congratulations! " + states[(x-1)%2] + " is the winner!</p>";
                         for(z=0;z<squares.length;z++){
                             squares[z].classList.add("finished");
                         }
