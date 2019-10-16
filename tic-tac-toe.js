@@ -60,7 +60,10 @@ window.onload = function(){
             games[c].classList.remove("X");
             games[c].classList.remove("O");
             games[c].addEventListener("mouseover", function(){
-                this.classList.add("hover");
+                if(!gameDone)
+                {
+                    this.classList.add("hover");
+                }
             })
             games[c].addEventListener("mouseout", function(){
                 this.classList.remove("hover");
